@@ -1,0 +1,61 @@
+
+h1 {
+  text-align: center;
+}
+
+.custom-table {
+  font-size: 20px;
+  line-height:50px;
+}
+
+#unhide {
+  margin: 2% 20%;
+  font-size: 15px;
+  float: right;
+}
+
+.custom-tbody td{
+  padding: 0px 20%;
+}
+
+.custom-tbody .btn{
+  display: none;
+  padding: 5px;
+  margin: 12px 10px;
+}
+
+.hid{
+  float: right;
+}
+
+td:hover .star-button{
+  display: inline;
+}
+td:hover .btn{
+  display: inline;
+}
+
+.error-message{
+  color: rgb(255, 0, 0);
+}
+
+.star{
+  background-color: transparent;
+  border-color: transparent;
+  float:right;
+}
+
+.star-button {
+  display:none;
+}
+
+.starred .star-icon,
+.star-button .star-icon {
+  color: rgb(218, 165, 32); /* Color for the starred icon */
+}
+
+.star-button .star-icon {
+  color: rgb(211, 211, 211); /* Color for the unstarred icon */
+}
+
+
