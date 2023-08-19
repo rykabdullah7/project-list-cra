@@ -36,6 +36,7 @@ function App() {
           component={ProjectList}
           isLoggedIn={isLoggedIn}
         />
+        <Redirect to="/login"/>
       </Switch>
     </Router>
   );
