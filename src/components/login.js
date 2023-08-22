@@ -1,8 +1,8 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 
 function LoginForm(props) {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState('');
@@ -33,7 +33,7 @@ function LoginForm(props) {
                     const accessToken = generateToken();
                     sessionStorage.setItem('accessToken', accessToken);
                     props.onLoginSuccess();
-                    history.push('/project-list');
+                    navigate('/project-list');
                 }
             } else {
                 setLoginError('Invalid username or password');
