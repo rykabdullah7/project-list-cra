@@ -4,28 +4,33 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import LoginForm from './components/login';
 import ProjectList from './components/project-list';
 
-function PrivateRoute({ element: Element, isLoggedIn }) { 
-  return isLoggedIn ? <Element /> : <Navigate to="/login" />;
+function PrivateRoute({ element: Element, isLoggedIn, token }) { 
+  return isLoggedIn ? <Element token={token} /> : <Navigate to="/login" />;
 }
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState('');
 
-  function handleLoginSuccess() {
+
+  function handleLoginSuccess(accessToken) {
     setIsLoggedIn(true);
+    setToken(accessToken);
+    
   }
 
   return (
- 
-      <Routes> 
-        <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
-        <Route
-          path="/project-list"
-          element={<PrivateRoute element={ProjectList} isLoggedIn={isLoggedIn} />}
-        />
-        <Route path="/" element={<Navigate to="/login" />} /> 
-      </Routes>
-    
+    <Routes> 
+      <Route
+        path="/login"
+        element={<LoginForm onLoginSuccess={handleLoginSuccess} />}
+      />
+      <Route
+        path="/project-list"
+        element={<PrivateRoute element={ProjectList} isLoggedIn={isLoggedIn} token={token}  />}
+      />
+      <Route path="/" element={<Navigate to="/login" />} /> 
+    </Routes>
   );
 }
 
