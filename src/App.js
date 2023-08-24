@@ -1,8 +1,9 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom'; 
 import LoginForm from './components/login';
 import ProjectList from './components/project-list';
+import UserContext from './components/user-context';
 
 function PrivateRoute({ element: Element, isLoggedIn, token }) { 
   return isLoggedIn ? <Element token={token} /> : <Navigate to="/login" />;
@@ -25,10 +26,13 @@ function App() {
         path="/login"
         element={<LoginForm onLoginSuccess={handleLoginSuccess} />}
       />
+      
       <Route
         path="/project-list"
-        element={<PrivateRoute element={ProjectList} isLoggedIn={isLoggedIn} token={token}  />}
+        element={<UserContext.Provider value={token}><PrivateRoute element={ProjectList} isLoggedIn={isLoggedIn} /></UserContext.Provider>}
       />
+      
+      
       <Route path="/" element={<Navigate to="/login" />} /> 
     </Routes>
   );
