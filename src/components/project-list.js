@@ -1,11 +1,26 @@
 import React, { useState, useEffect, useContext,  } from 'react';
+import axios from 'axios'; 
 import Table from './table';
 import Project from './project';
-import UserContext from './user-context';
+import { useUserContext } from './user-context';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
-  const token = useContext(UserContext);
+  const token = useUserContext();
+
+  const axiosInstance = axios.create({
+    baseURL: 'https://sheetlabs.com/ARBI',
+  });
+
+  axiosInstance.interceptors.request.use(
+    (config) => {
+      config.headers['Authorization'] = `Basic ${btoa(`api@arbisoft.com:${token}`)}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 
   useEffect(() => {
     fetchProjects();
@@ -13,15 +28,11 @@ function ProjectList() {
 
   const fetchProjects = async () => {
     try {
+      const response = await axiosInstance.get('/projects');
       
-      const response = await fetch('https://sheetlabs.com/ARBI/projects', {
-        headers: {
-          'Authorization': 'Basic ' + btoa(`api@arbisoft.com:${token}`),
-        },
-      });
-      
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = await response.data;
+     
         setProjects(data);
       } else {
         console.error('Failed to fetch projects');
