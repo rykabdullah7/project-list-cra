@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext,  } from 'react';
 import Table from './table';
 import Project from './project';
+import UserContext from './user-context';
 
-function ProjectList({token}) {
+function ProjectList() {
   const [projects, setProjects] = useState([]);
+  const token = useContext(UserContext);
 
   useEffect(() => {
     fetchProjects();
