@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import axiosInstance from './axios-interceptor';
 import Table from './table';
 import Project from './project';
-
-import axiosInstance from './axios-intercepter';
+import UserContext from './user-context';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
- 
+  const token = useContext(UserContext);
 
   useEffect(() => {
     fetchProjects();
@@ -14,7 +14,11 @@ function ProjectList() {
 
   const fetchProjects = async () => {
     try {
-      const response = await axiosInstance.get('/projects');
+      const response = await axiosInstance.get('/projects',{
+        headers:{
+          Authorization:token,
+        }
+      });
       
       if (response.status === 200) {
         const data = await response.data;
