@@ -1,26 +1,12 @@
-import React, { useState, useEffect, useContext,  } from 'react';
-import axios from 'axios'; 
+import React, { useState, useEffect } from 'react';
 import Table from './table';
 import Project from './project';
-import { useUserContext } from './user-context';
+
+import axiosInstance from './axios-intercepter';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
-  const token = useUserContext();
-
-  const axiosInstance = axios.create({
-    baseURL: 'https://sheetlabs.com/ARBI',
-  });
-
-  axiosInstance.interceptors.request.use(
-    (config) => {
-      config.headers['Authorization'] = `Basic ${btoa(`api@arbisoft.com:${token}`)}`;
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+ 
 
   useEffect(() => {
     fetchProjects();
