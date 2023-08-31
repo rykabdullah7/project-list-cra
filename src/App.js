@@ -6,7 +6,7 @@ import ProjectList from './components/project-list';
 import UserContext from './components/user-context';
 
 function PrivateRoute({ element: Element, isLoggedIn, token }) { 
-  return isLoggedIn ? <Element token={token} /> : <Navigate to="/login" />;
+  return isLoggedIn ? <Element  /> : <Navigate to="/login" />;
 }
 
 function App() {
