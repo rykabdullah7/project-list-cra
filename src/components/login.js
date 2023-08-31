@@ -10,6 +10,7 @@ function LoginForm(props) {
     async function handleLoginSubmit(event) {
         event.preventDefault();
         try {
+            
             const baseUrl = 'https://app.sheetlabs.com/ARBI/auth';
             const queryParams = new URLSearchParams({
                 username: email,
@@ -19,22 +20,22 @@ function LoginForm(props) {
             const url = `${baseUrl}?${queryParams}`;
 
             const response = await fetch(url, {
-                method: 'POST',  // Or use 'GET' if that's the required method
+                method: 'POST',  
                 headers: {
                     'Content-Type': 'application/json;UTF',
                 },
             });
 
-            console.log(response);
+            
             if (response.ok) {
                 const data = await response.json();
                 const sNo = data[0].sNo;
+                const accessToken = data[0].token;
                 if (sNo) {
-                    const accessToken = generateToken();
                     sessionStorage.setItem('accessToken', accessToken);
-                    props.onLoginSuccess();
-                    navigate('/project-list');
                 }
+                    props.onLoginSuccess(accessToken);
+                    navigate('/project-list');
             } else {
                 setLoginError('Invalid username or password');
             }
@@ -42,19 +43,7 @@ function LoginForm(props) {
             setLoginError('Invalid username or password');
             console.error('Error:', error);
         }
-
-
     }
-
-    function generateToken() {
-        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-        let token = '';
-        for (let i = 0; i < 20; i++) {
-            token += chars[Math.floor(Math.random() * chars.length)];
-        }
-        return token;
-    }
-
     return (
         <form className="mx-auto mt-5" style={{ width: 400 }}>
             <div className="form-group">
