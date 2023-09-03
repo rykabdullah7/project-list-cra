@@ -3,26 +3,35 @@ import axiosInstance from './axios-interceptor';
 import Table from './table';
 import Project from './project';
 import UserContext from './user-context';
+import AddProject from './add-project';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
   const token = useContext(UserContext);
+  const [showForm, setShowForm] = useState(false);
+
+  const handleAddProject = (newProject) => {
+    setProjects([...projects, newProject]);
+  };
+
+  const closeForm = () => {
+    setShowForm(false);
+  };
 
   useEffect(() => {
     fetchProjects();
-  },[]);
+  }, []);
 
   const fetchProjects = async () => {
     try {
-      const response = await axiosInstance.get('/projects',{
-        headers:{
-          Authorization:token,
+      const response = await axiosInstance.get('/projects', {
+        headers: {
+          Authorization: token,
         }
       });
-      
+
       if (response.status === 200) {
         const data = await response.data;
-     
         setProjects(data);
       } else {
         console.error('Failed to fetch projects');
@@ -31,6 +40,7 @@ function ProjectList() {
       console.error('Error fetching projects:', error);
     }
   };
+
 
   const handleToggleProject = (index, field) => {
     setProjects((prevProjects) => {
@@ -56,27 +66,53 @@ function ProjectList() {
 
   const showHiddenProjects = () => {
     setProjects(
-      projects.map(project => ({...project,hidden:false}))
+      projects.map(project => ({ ...project, hidden: false }))
     )
   };
 
   return (
     <>
       <h1>Project Portal</h1>
-      <button
-        id="unhide"
-        className="btn btn-primary"
-        onClick={showHiddenProjects}
-      >
-        Show all projects
-      </button>
+      <div className='container'>
+
+        <button
+          id="unhide"
+          className="btn btn-primary"
+          onClick={showHiddenProjects}
+        >
+          Show all projects
+        </button>
+
+        {showForm ? (
+          <button className="btn btn-primary cancel" onClick={closeForm}>
+            Cancel
+          </button>
+        ) : (
+          <button
+            className="btn btn-primary add-project-btn"
+            onClick={() => setShowForm(true)}
+          >
+            Add Project
+          </button>
+        )}
+      </div>
+
+
+      {showForm && (
+        <AddProject
+          onAddProject={handleAddProject}
+          token={token}
+          onFormSubmit={closeForm}
+        />
+      )}
+
       <div className="clear"></div>
       <div>
         <Table>
           {projects.map((project, index) =>
             project.hidden ? null : (
               <Project
-                key={project.id} 
+                key={project.id}
                 project={project}
                 onStarClick={() => handleToggleProject(index, 'isStarred')}
                 onHideClick={() => handleHideProject(index, 'hidden')}
