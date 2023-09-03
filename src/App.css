@@ -8,10 +8,19 @@ h1 {
   line-height:50px;
 }
 
-#unhide {
+.container{
+  display: flex;
+  justify-content: space-between;
+}
+
+#unhide,.add-project-btn,.cancel {
   margin: 2% 20%;
   font-size: 15px;
-  float: right;
+  
+}
+
+.add-project {
+  width: 700px;
 }
 
 .custom-tbody td{
