@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axiosInstance from './axios-interceptor';
+import axiosInstance from './axios-instance';
 import Table from './table';
 import Project from './project';
 import UserContext from './user-context';
