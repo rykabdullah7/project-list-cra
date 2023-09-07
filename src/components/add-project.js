@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import axiosInstance from './axios-interceptor';
+import axiosInstance from './axios-instance';
 import UserContext from './user-context';
 
 function AddProject({ onAddProject, onFormSubmit }) {
