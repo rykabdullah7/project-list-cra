@@ -1,16 +1,48 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosInstance from './axios-instance';
-import UserContext from './user-context';
+import {useUserContext} from './user-context';
 
 function AddProject({ onAddProject, onFormSubmit }) {
-  const token = useContext(UserContext);
+  const token = useUserContext();
   const [formData, setFormData] = useState({
-    projectId: '',
+    projectId:'',
     name: '',
     budget: '',
     timeline: '',
     description: '',
   });
+
+  useEffect(() => {
+    fetchProjects();
+  }, []); 
+
+  const fetchProjects = async () => {
+    try {
+      const response = await axiosInstance.get('/projects', {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      if (response.status === 200) {
+        const projects = response.data;
+        if (projects.length === 0) {
+          // If there are no projects, start with projectId '1'
+          setFormData({ ...formData, projectId: '1' });
+        } else {
+          
+          const lastProject = projects[projects.length - 1];
+          const lastProjectId = lastProject.projectId;
+          const newProjectId = (parseInt(lastProjectId) + 1).toString();
+          setFormData({ ...formData, projectId: newProjectId });
+        }
+      } else {
+        console.error('Failed to fetch projects');
+      }
+    } catch (error) {
+      console.error('Error fetching projects:', error);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -32,10 +64,10 @@ function AddProject({ onAddProject, onFormSubmit }) {
 
       if (response.status === 204) {
 
-        onAddProject(formData);
+       onAddProject();
 
         setFormData({
-          projectId: '',
+          projectId:'',
           name: '',
           budget: '',
           timeline: '',
@@ -54,51 +86,35 @@ function AddProject({ onAddProject, onFormSubmit }) {
   return (
     <form className='mx-auto add-project' onSubmit={handleSubmit}>
       <div className='form-row'>
-        <div className="form-group col-md-6">
-          <label htmlFor="projectId">Project ID</label>
-          <input
-            type="text"
-            className="form-control"
-            id="projectId"
-            name="projectId"
-            value={formData.projectId}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="form-group col-md-6">
+
+        <div className="form-group col-md-4">
           <label htmlFor="name">Name</label>
           <input
             type="text"
             className="form-control"
-            id="name"
             name="name"
             value={formData.name}
             onChange={handleInputChange}
             required
           />
         </div>
-      </div>
-
-      <div className='form-row'>
-        <div className="form-group col-md-6">
+        <div className="form-group col-md-4">
           <label htmlFor="budget">Budget</label>
           <input
             type="text"
             className="form-control"
-            id="budget"
             name="budget"
             value={formData.budget}
             onChange={handleInputChange}
             required
           />
         </div>
-        <div className="form-group col-md-6">
+        <div className="form-group col-md-4">
           <label htmlFor="timeline">Timeline</label>
           <input
             type="text"
             className="form-control"
-            id="timeline"
+
             name="timeline"
             value={formData.timeline}
             onChange={handleInputChange}
@@ -107,12 +123,13 @@ function AddProject({ onAddProject, onFormSubmit }) {
         </div>
       </div>
 
+
+
       <div className='form-row'>
         <div className="form-group col-md-10">
           <label htmlFor="description">Description</label>
           <textarea
             className="form-control"
-            id="description"
             name="description"
             value={formData.description}
             onChange={handleInputChange}
