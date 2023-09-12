@@ -1,18 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect} from 'react';
 import axiosInstance from './axios-instance';
 import Table from './table';
 import Project from './project';
-import UserContext from './user-context';
+import {useUserContext} from './user-context';
 import AddProject from './add-project';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
-  const token = useContext(UserContext);
+  const token = useUserContext();
   const [showForm, setShowForm] = useState(false);
-
-  const handleAddProject = (newProject) => {
-    setProjects([...projects, newProject]);
-  };
 
   const closeForm = () => {
     setShowForm(false);
@@ -100,7 +96,7 @@ function ProjectList() {
 
       {showForm && (
         <AddProject
-          onAddProject={handleAddProject}
+          onAddProject={fetchProjects}
           token={token}
           onFormSubmit={closeForm}
         />
