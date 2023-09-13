@@ -1,14 +1,15 @@
 
 import React from 'react';
+import Table from 'react-bootstrap/Table';
 
-function Table({ children }) {
+function ProjectsTable({ children }) {
   return (
-    <table width="100%" className="table-hover custom-table">
+    <Table  hover width="100%" className="custom-table">
       <tbody className="custom-tbody">
         {children}
       </tbody>
-    </table>
+    </Table>
   );
 }
 
-export default Table;
+export default ProjectsTable;
