@@ -1,28 +1,34 @@
-import React, { useState, useEffect, useContext } from 'react';
-import axiosInstance from './axios-interceptor';
+import React, { useState, useEffect} from 'react';
+import axiosInstance from './axios-instance';
 import Table from './table';
 import Project from './project';
-import UserContext from './user-context';
+import {useUserContext} from './user-context';
+import AddProject from './add-project';
+import Button  from 'react-bootstrap/Button';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
-  const token = useContext(UserContext);
+  const token = useUserContext();
+  const [showForm, setShowForm] = useState(false);
+
+  const closeForm = () => {
+    setShowForm(false);
+  };
 
   useEffect(() => {
     fetchProjects();
-  },[]);
+  }, []);
 
   const fetchProjects = async () => {
     try {
-      const response = await axiosInstance.get('/projects',{
-        headers:{
-          Authorization:token,
+      const response = await axiosInstance.get('/projects', {
+        headers: {
+          Authorization: token,
         }
       });
-      
+
       if (response.status === 200) {
         const data = await response.data;
-     
         setProjects(data);
       } else {
         console.error('Failed to fetch projects');
@@ -31,6 +37,7 @@ function ProjectList() {
       console.error('Error fetching projects:', error);
     }
   };
+
 
   const handleToggleProject = (index, field) => {
     setProjects((prevProjects) => {
@@ -56,27 +63,52 @@ function ProjectList() {
 
   const showHiddenProjects = () => {
     setProjects(
-      projects.map(project => ({...project,hidden:false}))
+      projects.map(project => ({ ...project, hidden: false }))
     )
   };
 
   return (
     <>
       <h1>Project Portal</h1>
-      <button
-        id="unhide"
-        className="btn btn-primary"
-        onClick={showHiddenProjects}
-      >
-        Show all projects
-      </button>
+      <div className='container'>
+
+        <Button
+          id="unhide"
+          onClick={showHiddenProjects}
+        >
+          Show all projects
+        </Button>
+
+        {showForm ? (
+          <Button className="cancel" onClick={closeForm}>
+            Cancel
+          </Button>
+        ) : (
+          <Button
+            className="add-project-btn"
+            onClick={() => setShowForm(true)}
+          >
+            Add Project
+          </Button>
+        )}
+      </div>
+
+
+      {showForm && (
+        <AddProject
+          onAddProject={fetchProjects}
+          token={token}
+          onFormSubmit={closeForm}
+        />
+      )}
+
       <div className="clear"></div>
       <div>
         <Table>
           {projects.map((project, index) =>
             project.hidden ? null : (
               <Project
-                key={project.id} 
+                key={project.id}
                 project={project}
                 onStarClick={() => handleToggleProject(index, 'isStarred')}
                 onHideClick={() => handleHideProject(index, 'hidden')}
