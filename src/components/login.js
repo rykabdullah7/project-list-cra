@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 function LoginForm(props) {
     const navigate = useNavigate();
@@ -45,10 +47,10 @@ function LoginForm(props) {
         }
     }
     return (
-        <form className="mx-auto mt-5" style={{ width: 400 }}>
-            <div className="form-group">
-                <label htmlFor="email">Email address</label>
-                <input
+        <Form className="mx-auto mt-5" style={{ width: 400 }}>
+            <Form.Group >
+                <Form.Label htmlFor="email">Email address</Form.Label>
+                <Form.Control
                     type="text"
                     className="form-control"
                     id="email"
@@ -57,13 +59,13 @@ function LoginForm(props) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                 />
-                <small id="emailHelp" className="form-text text-muted">
+                <Form.Text id="emailHelp" >
                     We'll never share your email with anyone else.
-                </small>
-            </div>
-            <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <input
+                </Form.Text>
+            </Form.Group>
+            <Form.Group>
+                <Form.Label htmlFor="password">Password</Form.Label>
+                <Form.Control
                     type="password"
                     className="form-control"
                     id="password"
@@ -71,12 +73,12 @@ function LoginForm(props) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-            </div>
+            </Form.Group>
             {loginError && <p className="error-message">{loginError}</p>}
-            <button type="submit" className="btn btn-primary" onClick={handleLoginSubmit}>
+            <Button type="submit" className='mt-3'  onClick={handleLoginSubmit}>
                 Login
-            </button>
-        </form>
+            </Button>
+        </Form>
     );
 }
 
