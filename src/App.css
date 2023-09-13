@@ -5,18 +5,40 @@ h1 {
 
 .custom-table {
   font-size: 20px;
-  line-height:50px;
+  line-height:25px;
+
 }
 
-#unhide {
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.id{
+  width: 5%;
+}
+
+.name, .budget, .timeline{
+  width: 15%;
+}
+
+.description{
+  width: 30%;
+}
+
+#unhide,.add-project-btn,.cancel {
   margin: 2% 20%;
   font-size: 15px;
-  float: right;
+  
 }
 
-.custom-tbody td{
-  padding: 0px 20%;
+.add-project {
+  width: 700px;
 }
+
+
 
 .custom-tbody .btn{
   display: none;
@@ -24,14 +46,7 @@ h1 {
   margin: 12px 10px;
 }
 
-.hid{
-  float: right;
-}
-
-td:hover .star-button{
-  display: inline;
-}
-td:hover .btn{
+.row:hover .btn{
   display: inline;
 }
 
@@ -42,12 +57,17 @@ td:hover .btn{
 .star{
   background-color: transparent;
   border-color: transparent;
-  float:right;
+ 
 }
+
+.row:hover  .star-button{
+  display: inline;
+} 
 
 .star-button {
   display:none;
 }
+
 
 .starred .star-icon,
 .star-button .star-icon {
