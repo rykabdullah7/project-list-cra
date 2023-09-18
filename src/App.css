@@ -8,14 +8,37 @@ h1 {
   line-height:50px;
 }
 
-#unhide {
+.container{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.id{
+  width: 5%;
+}
+
+.name, .budget, .timeline{
+  width: 15%;
+}
+
+.description{
+  width: 30%;
+}
+
+#unhide,.add-project-btn,.cancel {
   margin: 2% 20%;
   font-size: 15px;
-  float: right;
+  
+}
+
+.add-project {
+  width: 700px;
 }
 
 .custom-tbody td{
-  padding: 0px 20%;
+  padding: 0px 2%;
 }
 
 .custom-tbody .btn{
@@ -24,14 +47,12 @@ h1 {
   margin: 12px 10px;
 }
 
-.hid{
-  float: right;
-}
 
-td:hover .star-button{
+
+.row:hover .star-button{
   display: inline;
 }
-td:hover .btn{
+.row:hover .btn{
   display: inline;
 }
 
@@ -42,7 +63,7 @@ td:hover .btn{
 .star{
   background-color: transparent;
   border-color: transparent;
-  float:right;
+ 
 }
 
 .star-button {
