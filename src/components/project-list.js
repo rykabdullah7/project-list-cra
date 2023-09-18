@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import axiosInstance from './axios-instance';
-import Table from './table';
+import ProjectsTable from './table';
 import Project from './project';
 import {useUserContext} from './user-context';
 import AddProject from './add-project';
@@ -104,7 +104,7 @@ function ProjectList() {
 
       <div className="clear"></div>
       <div>
-        <Table>
+        <ProjectsTable>
           {projects.map((project, index) =>
             project.hidden ? null : (
               <Project
@@ -115,7 +115,7 @@ function ProjectList() {
               />
             )
           )}
-        </Table>
+        </ProjectsTable>
       </div>
     </>
   );
