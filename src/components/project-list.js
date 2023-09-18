@@ -1,9 +1,10 @@
 import React, { useState, useEffect} from 'react';
 import axiosInstance from './axios-instance';
-import Table from './table';
+import ProjectsTable from './table';
 import Project from './project';
 import {useUserContext} from './user-context';
 import AddProject from './add-project';
+import Button  from 'react-bootstrap/Button';
 
 function ProjectList() {
   const [projects, setProjects] = useState([]);
@@ -71,25 +72,24 @@ function ProjectList() {
       <h1>Project Portal</h1>
       <div className='container'>
 
-        <button
+        <Button
           id="unhide"
-          className="btn btn-primary"
           onClick={showHiddenProjects}
         >
           Show all projects
-        </button>
+        </Button>
 
         {showForm ? (
-          <button className="btn btn-primary cancel" onClick={closeForm}>
+          <Button className="cancel" onClick={closeForm}>
             Cancel
-          </button>
+          </Button>
         ) : (
-          <button
-            className="btn btn-primary add-project-btn"
+          <Button
+            className="add-project-btn"
             onClick={() => setShowForm(true)}
           >
             Add Project
-          </button>
+          </Button>
         )}
       </div>
 
@@ -104,7 +104,7 @@ function ProjectList() {
 
       <div className="clear"></div>
       <div>
-        <Table>
+        <ProjectsTable>
           {projects.map((project, index) =>
             project.hidden ? null : (
               <Project
@@ -115,7 +115,7 @@ function ProjectList() {
               />
             )
           )}
-        </Table>
+        </ProjectsTable>
       </div>
     </>
   );
