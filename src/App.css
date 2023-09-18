@@ -1,7 +1,10 @@
 
 h1 {
   text-align: center;
+  color: rgb(0,116,228);
 }
+
+
 
 .custom-table {
   font-size: 20px;
@@ -9,23 +12,36 @@ h1 {
 
 }
 
+.head{
+  border-width:thick;
+  font-weight: bold;
+  text-align: center;
+}
+
 .container{
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   align-items: center;
+  
 }
 
 .id{
   width: 5%;
+  text-align: center;
 }
 
 .name, .budget, .timeline{
   width: 15%;
+  text-align: center;
 }
 
+.star-btn, .hide-btn{
+  width: 5%;
+ 
+}
 .description{
-  width: 30%;
+  width: 40%;
 }
 
 #unhide,.add-project-btn,.cancel {
@@ -34,8 +50,12 @@ h1 {
   
 }
 
+
 .add-project {
+  background-color: rgb(249,249,249);
   width: 700px;
+  border: 1px solid rgb(86, 92, 97);
+  border-radius: 20px;
 }
 
 
