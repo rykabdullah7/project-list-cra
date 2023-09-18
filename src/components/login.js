@@ -52,7 +52,7 @@ function LoginForm(props) {
                 <Form.Label htmlFor="email">Email address</Form.Label>
                 <Form.Control
                     type="text"
-                    className="form-control"
+                    
                     id="email"
                     aria-describedby="emailHelp"
                     placeholder="Enter email"
@@ -67,7 +67,7 @@ function LoginForm(props) {
                 <Form.Label htmlFor="password">Password</Form.Label>
                 <Form.Control
                     type="password"
-                    className="form-control"
+                    
                     id="password"
                     placeholder="Password"
                     value={password}
