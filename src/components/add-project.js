@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from './axios-instance';
 import {useUserContext} from './user-context';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
 
 function AddProject({ onAddProject, onFormSubmit }) {
   const token = useUserContext();
@@ -84,63 +87,60 @@ function AddProject({ onAddProject, onFormSubmit }) {
   };
 
   return (
-    <form className='mx-auto add-project' onSubmit={handleSubmit}>
-      <div className='form-row'>
-
-        <div className="form-group col-md-4">
-          <label htmlFor="name">Name</label>
-          <input
+    <Form className='mx-auto p-5 mb-5 add-project' onSubmit={handleSubmit}>
+      <Row>
+        <Form.Group className="col-md-4">
+          <Form.Label htmlFor="name">Name</Form.Label >
+          <Form.Control
             type="text"
-            className="form-control"
             name="name"
+            className='input'
             value={formData.name}
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div className="form-group col-md-4">
-          <label htmlFor="budget">Budget</label>
-          <input
+        </Form.Group>
+        <Form.Group className="col-md-4">
+          <Form.Label  htmlFor="budget">Budget</Form.Label >
+          <Form.Control
             type="text"
-            className="form-control"
             name="budget"
+            className='input'
             value={formData.budget}
             onChange={handleInputChange}
             required
           />
-        </div>
-        <div className="form-group col-md-4">
-          <label htmlFor="timeline">Timeline</label>
-          <input
+        </Form.Group>
+        <Form.Group className="col-md-4">
+          <Form.Label  htmlFor="timeline">Timeline</Form.Label >
+          <Form.Control
             type="text"
-            className="form-control"
-
             name="timeline"
+            className='input'
             value={formData.timeline}
             onChange={handleInputChange}
             required
           />
-        </div>
-      </div>
+        </Form.Group>
+      </Row>
 
-
-
-      <div className='form-row'>
-        <div className="form-group col-md-10">
-          <label htmlFor="description">Description</label>
-          <textarea
-            className="form-control"
+      <Row>
+        <Form.Group className="col-md-10">
+          <Form.Label  htmlFor="description">Description</Form.Label >
+          <Form.Control
+            as="textarea"
             name="description"
+            className='input'
             value={formData.description}
             onChange={handleInputChange}
             required
           />
-        </div>
-        <button type="submit" className="btn btn-primary col-md-2 my-5">
+        </Form.Group>
+        <Button type="submit" className="col-md-2 add-btn my-5">
           Add Project
-        </button>
-      </div>
-    </form>
+        </Button>
+      </Row>
+    </Form>
   );
 }
 

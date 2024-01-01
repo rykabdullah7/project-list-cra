@@ -1,30 +1,47 @@
 
 h1 {
   text-align: center;
+  color: rgb(0,116,228);
 }
+
+
 
 .custom-table {
   font-size: 20px;
-  line-height:50px;
+  line-height:25px;
+
+}
+
+.head{
+  border-width:thick;
+  font-weight: bold;
+  text-align: center;
 }
 
 .container{
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  
 }
 
 .id{
   width: 5%;
+  text-align: center;
 }
 
 .name, .budget, .timeline{
   width: 15%;
+  text-align: center;
 }
 
+.star-btn, .hide-btn{
+  width: 5%;
+ 
+}
 .description{
-  width: 30%;
+  width: 40%;
 }
 
 #unhide,.add-project-btn,.cancel {
@@ -33,13 +50,15 @@ h1 {
   
 }
 
+
 .add-project {
+  background-color: rgb(249,249,249);
   width: 700px;
+  border: 1px solid rgb(86, 92, 97);
+  border-radius: 20px;
 }
 
-.custom-tbody td{
-  padding: 0px 2%;
-}
+
 
 .custom-tbody .btn{
   display: none;
@@ -47,11 +66,6 @@ h1 {
   margin: 12px 10px;
 }
 
-
-
-.row:hover .star-button{
-  display: inline;
-}
 .row:hover .btn{
   display: inline;
 }
@@ -66,9 +80,14 @@ h1 {
  
 }
 
+.row:hover  .star-button{
+  display: inline;
+} 
+
 .star-button {
   display:none;
 }
+
 
 .starred .star-icon,
 .star-button .star-icon {
